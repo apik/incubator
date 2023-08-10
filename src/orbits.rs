@@ -9,7 +9,7 @@ use intbits::Bits;
 // (a,0,0,0,0,...)
 // with points saved for bisection direction calculation
 // pub fn orbitAdiff(lambdaA:f64, hc:&HyperCube, f:IntegrandFunction, n:usize, lPlus:& mut Vec<(f64,f64)>, lMinus:& mut Vec<f64>) -> f64 {
-pub fn orbitAdiff(lambda_a:f64, hc:&HyperCube, f:IntegrandFunction, n:usize, l_shifts:& mut Vec<(f64,f64)>, f_evals:&mut usize) -> f64 {
+pub fn orbitAdiff(lambda_a:f64, hc:&HyperCube, f:IntegrandFunction, n:usize, l_shifts: & mut [(f64,f64)], f_evals:&mut usize) -> f64 {
     let mut res: f64 = 0.0;
     // Position of the first generator
     for g_a_pos in 0..n {
@@ -46,7 +46,7 @@ pub fn orbitAA(lambda_a:f64, hc:&HyperCube, f:IntegrandFunction, n:usize, f_eval
     let mut res: f64 = 0.0;
     // Position of the first generator of the A type
     for gA1pos in 0..n {
-        for gA2pos in (gA1pos+1)..n  as usize{
+        for gA2pos in (gA1pos+1)..n {
             for sgns in 0..2_i32.pow(2) {
                 let mut x = hc.xc.to_vec();
                 if sgns.bit(0) {x[gA1pos] += lambda_a*hc.hw[gA1pos]} else {x[gA1pos] -= lambda_a*hc.hw[gA1pos]}
@@ -266,9 +266,12 @@ pub fn orbitDelta(delta:f64, hc:&HyperCube, f:IntegrandFunction, n:usize, f_eval
     // Position of the first generator
     for sgns in 0..2_i32.pow(n as u32) {
         let mut x = hc.xc.to_vec();
-        for s_pos in 0..n {
-            if sgns.bit(s_pos) {x[s_pos] += delta*hc.hw[s_pos]} else {x[s_pos] -= delta*hc.hw[s_pos]}
+        for (s_pos, x_i) in x.iter_mut().enumerate() {
+            if sgns.bit(s_pos) {*x_i += delta*hc.hw[s_pos]} else {*x_i -= delta*hc.hw[s_pos]}
         }
+        // for s_pos in 0..n {
+        //     if sgns.bit(s_pos) {x[s_pos] += delta*hc.hw[s_pos]} else {x[s_pos] -= delta*hc.hw[s_pos]}
+        // }
         res += f(&x);
         *f_evals += 1;
     }
@@ -301,7 +304,7 @@ mod tests {
 
         // (1,0,0,0,0,...)
         assert_approx_eq!(orbitA(gen.get_l1(), &cube5d, f_11 , 5, &mut f_evals), 10.0, ERR);
-        assert_approx_eq!(orbitA(gen.get_l1(), &cube5d, f_12 , 5, &mut f_evals), 11.827517592817277360, ERR);
+        assert_approx_eq!(orbitA(gen.get_l1(), &cube5d, f_12 , 5, &mut f_evals), 11.827517592817278, ERR);
         assert_approx_eq!(orbitA(gen.get_l1(), &cube5d, f_22 , 5, &mut f_evals), 13.655035185634554720, ERR);
         assert_approx_eq!(orbitA(gen.get_l1(), &cube5d, f_222 , 5, &mut f_evals), 15.482552778451832080, ERR);
         assert_approx_eq!(orbitA(gen.get_l1(), &cube5d, f_2222 , 5, &mut f_evals), 17.310070371269109439, ERR);

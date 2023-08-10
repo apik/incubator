@@ -33,103 +33,103 @@ pub fn integrate_region(hc:&HyperCube, f:IntegrandFunction, n:usize, r11:&Rule11
 
     // (1,0,0,0,0,...)
     // let orb_10000 = orb::orbitAdiff(g.get_l1(), &hc, f , n, &mut lam1p, &mut lam1m);
-    let orb_10000 = orb::orbitAdiff(g.get_l1(), &hc, f , n, &mut f_lam1, &mut f_evals);
+    let orb_10000 = orb::orbitAdiff(g.get_l1(), hc, f , n, &mut f_lam1, &mut f_evals);
     res11 += r11.get_w10000()*orb_10000;
     res13 += r13.get_w10000()*orb_10000;
 
     // (1,1,0,0,0,...)
-    let orb_11000 = orb::orbitAA(g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_11000 = orb::orbitAA(g.get_l1(), hc, f , n, &mut f_evals);
     res11 += r11.get_w11000()*orb_11000;
     res13 += r13.get_w11000()*orb_11000;
 
     // (1,1,1,0,0,...)
-    let orb_11100 = orb::orbitAAA(g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_11100 = orb::orbitAAA(g.get_l1(), hc, f , n, &mut f_evals);
     res11 += r11.get_w11100()*orb_11100;
     res13 += r13.get_w11100()*orb_11100;
 
     // (1,1,1,1,0,...)
-    let orb_11110 = orb::orbitAAAA(g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_11110 = orb::orbitAAAA(g.get_l1(), hc, f , n, &mut f_evals);
     res11 += r11.get_w11110()*orb_11110;
     res13 += r13.get_w11110()*orb_11110;
 
     // (1,1,1,1,1,...)
-    let orb_11111 = orb::orbitAAAAA(g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_11111 = orb::orbitAAAAA(g.get_l1(), hc, f , n, &mut f_evals);
     // res11 += r11.get_w11111()*orb_11111;
     res13 += r13.get_w11111()*orb_11111;
 
     // (2,0,0,0,0,...)
-    // let orb_20000 = orb::orbitAdiff(g.get_l2(), &hc, f , n, &mut lam2p, &mut lam2m);
-    let orb_20000 = orb::orbitAdiff(g.get_l2(), &hc, f , n, &mut f_lam2, &mut f_evals);
+    // let orb_20000 = orb::orbitAdiff(g.get_l2(), hc, f , n, &mut lam2p, &mut lam2m);
+    let orb_20000 = orb::orbitAdiff(g.get_l2(), hc, f , n, &mut f_lam2, &mut f_evals);
     res11 += r11.get_w20000()*orb_20000;
     res13 += r13.get_w20000()*orb_20000;
 
     // (2,1,0,0,0,...)
-    let orb_21000 = orb::orbitBA(g.get_l2(), g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_21000 = orb::orbitBA(g.get_l2(), g.get_l1(), hc, f , n, &mut f_evals);
     res11 += r11.get_w21000()*orb_21000;
     res13 += r13.get_w21000()*orb_21000;
 
     // (2,1,1,0,0,...)
-    let orb_21100 = orb::orbitBAA(g.get_l2(), g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_21100 = orb::orbitBAA(g.get_l2(), g.get_l1(), hc, f , n, &mut f_evals);
     res11 += r11.get_w21100()*orb_21100;
     res13 += r13.get_w21100()*orb_21100;
 
     // (2,1,1,1,0,...)
-    let orb_21110 = orb::orbitBAAA(g.get_l2(), g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_21110 = orb::orbitBAAA(g.get_l2(), g.get_l1(), hc, f , n, &mut f_evals);
     // res11 += r11.get_w21110()*orb_21110;
     res13 += r13.get_w21110()*orb_21110;
 
     // (2,2,0,0,0,...)
     // res += r.get_w22000()*
-    let orb_22000 = orb::orbitAA(g.get_l2(), &hc, f , n, &mut f_evals);
+    let orb_22000 = orb::orbitAA(g.get_l2(), hc, f , n, &mut f_evals);
     res11 += r11.get_w22000()*orb_22000;
     res13 += r13.get_w22000()*orb_22000;
 
     // (2,2,1,0,0,...) TODO
-    let orb_22100 = orb::orbitBAA(g.get_l1(), g.get_l2(), &hc, f , n, &mut f_evals);
+    let orb_22100 = orb::orbitBAA(g.get_l1(), g.get_l2(), hc, f , n, &mut f_evals);
     // res11 += r11.get_w22100()*orb_22100;
     res13 += r13.get_w22100()*orb_22100;
 
     // (3,0,0,0,0,...)
-    // let orb_30000 = orb::orbitAdiff(g.get_l3(), &hc, f , n, &mut lam3p, &mut lam3m);
-    let orb_30000 = orb::orbitAdiff(g.get_l3(), &hc, f , n, &mut f_lam3, &mut f_evals);
+    // let orb_30000 = orb::orbitAdiff(g.get_l3(), hc, f , n, &mut lam3p, &mut lam3m);
+    let orb_30000 = orb::orbitAdiff(g.get_l3(), hc, f , n, &mut f_lam3, &mut f_evals);
     res11 += r11.get_w30000()*orb_30000;
     res13 += r13.get_w30000()*orb_30000;
 
     // (3,1,0,0,0,...)
-    let orb_31000 = orb::orbitBA(g.get_l3(), g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_31000 = orb::orbitBA(g.get_l3(), g.get_l1(), hc, f , n, &mut f_evals);
     res11 += r11.get_w31000()*orb_31000;
     res13 += r13.get_w31000()*orb_31000;
 
     // (3,1,1,0,0,...)
-    let orb_31100 = orb::orbitBAA(g.get_l3(), g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_31100 = orb::orbitBAA(g.get_l3(), g.get_l1(), hc, f , n, &mut f_evals);
     // res11 += r11.get_w31100()*orb_31100;
     res13 += r13.get_w31100()*orb_31100;
 
     // (3,2,0,0,0,...)
-    let orb_32000 = orb::orbitBA(g.get_l3(), g.get_l2(), &hc, f , n, &mut f_evals);
+    let orb_32000 = orb::orbitBA(g.get_l3(), g.get_l2(), hc, f , n, &mut f_evals);
     // res11 += r11.get_w32000()*orb_32000;
     res13 += r13.get_w32000()*orb_32000;
 
     // (4,0,0,0,0,...)
-    // let orb_40000 = orb::orbitAdiff(g.get_l4(), &hc, f , n, &mut lam4p, &mut lam4m);
-    let orb_40000 = orb::orbitAdiff(g.get_l4(), &hc, f , n, &mut f_lam4, &mut f_evals);
+    // let orb_40000 = orb::orbitAdiff(g.get_l4(), hc, f , n, &mut lam4p, &mut lam4m);
+    let orb_40000 = orb::orbitAdiff(g.get_l4(), hc, f , n, &mut f_lam4, &mut f_evals);
     res11 += r11.get_w40000()*orb_40000;
     res13 += r13.get_w40000()*orb_40000;
 
     // (4,1,0,0,0,...)
-    let orb_41000 = orb::orbitBA(g.get_l4(), g.get_l1(), &hc, f , n, &mut f_evals);
+    let orb_41000 = orb::orbitBA(g.get_l4(), g.get_l1(), hc, f , n, &mut f_evals);
     // res11 += r11.get_41000()*orb_41000;
     res13 += r13.get_w41000()*orb_41000;
 
     // (5,0,0,0,0,...)
-    // let orb_50000 = orb::orbitAdiff(g.get_l5(), &hc, f , n, &mut lam5p, &mut lam5m);
-    let orb_50000 = orb::orbitAdiff(g.get_l5(), &hc, f , n, &mut f_lam5, &mut f_evals);
+    // let orb_50000 = orb::orbitAdiff(g.get_l5(), hc, f , n, &mut lam5p, &mut lam5m);
+    let orb_50000 = orb::orbitAdiff(g.get_l5(), hc, f , n, &mut f_lam5, &mut f_evals);
     // res11 += r11.get_w50000()*orb_50000;
     res13 += r13.get_w50000()*orb_50000;
 
     // (delta,delta,...,delta)
     // res += r.get_wDelta()*
-    let orb_delta = orb::orbitDelta(g.get_de(), &hc, f , n, &mut f_evals);
+    let orb_delta = orb::orbitDelta(g.get_de(), hc, f , n, &mut f_evals);
     res11 += r11.get_w_delta()*orb_delta;
     res13 += r13.get_w_delta()*orb_delta;
 
@@ -194,43 +194,43 @@ mod tests {
         // (0,0,0,0,0,...)
         let mut res:f64 = r.get_w00000()*f(&hc.xc)*hc.hwvol;
         // (1,0,0,0,0,...)
-        res += r.get_w10000()*orb::orbitA(g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w10000()*orb::orbitA(g.get_l1(), hc, f , n , &mut f_evals);
         // (1,1,0,0,0,...)
-        res += r.get_w11000()*orb::orbitAA(g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w11000()*orb::orbitAA(g.get_l1(), hc, f , n , &mut f_evals);
         // (1,1,1,0,0,...)
-        res += r.get_w11100()*orb::orbitAAA(g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w11100()*orb::orbitAAA(g.get_l1(), hc, f , n , &mut f_evals);
         // (1,1,1,1,0,...)
-        res += r.get_w11110()*orb::orbitAAAA(g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w11110()*orb::orbitAAAA(g.get_l1(), hc, f , n , &mut f_evals);
         // (1,1,1,1,1,...)
-        res += r.get_w11111()*orb::orbitAAAAA(g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w11111()*orb::orbitAAAAA(g.get_l1(), hc, f , n , &mut f_evals);
         // (2,0,0,0,0,...)
-        res += r.get_w20000()*orb::orbitA(g.get_l2(), &hc, f , n , &mut f_evals);
+        res += r.get_w20000()*orb::orbitA(g.get_l2(), hc, f , n , &mut f_evals);
         // (2,1,0,0,0,...)
-        res += r.get_w21000()*orb::orbitBA(g.get_l2(), g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w21000()*orb::orbitBA(g.get_l2(), g.get_l1(), hc, f , n , &mut f_evals);
         // (2,1,1,0,0,...)
-        res += r.get_w21100()*orb::orbitBAA(g.get_l2(), g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w21100()*orb::orbitBAA(g.get_l2(), g.get_l1(), hc, f , n , &mut f_evals);
         // (2,1,1,1,0,...)
-        res += r.get_w21110()*orb::orbitBAAA(g.get_l2(), g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w21110()*orb::orbitBAAA(g.get_l2(), g.get_l1(), hc, f , n , &mut f_evals);
         // (2,2,0,0,0,...)
-        res += r.get_w22000()*orb::orbitAA(g.get_l2(), &hc, f , n , &mut f_evals);
+        res += r.get_w22000()*orb::orbitAA(g.get_l2(), hc, f , n , &mut f_evals);
         // (2,2,1,0,0,...) TODO
-        res += r.get_w22100()*orb::orbitBAA(g.get_l1(), g.get_l2(), &hc, f , n , &mut f_evals);
+        res += r.get_w22100()*orb::orbitBAA(g.get_l1(), g.get_l2(), hc, f , n , &mut f_evals);
         // (3,0,0,0,0,...)
-        res += r.get_w30000()*orb::orbitA(g.get_l3(), &hc, f , n , &mut f_evals);
+        res += r.get_w30000()*orb::orbitA(g.get_l3(), hc, f , n , &mut f_evals);
         // (3,1,0,0,0,...)
-        res += r.get_w31000()*orb::orbitBA(g.get_l3(), g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w31000()*orb::orbitBA(g.get_l3(), g.get_l1(), hc, f , n , &mut f_evals);
         // (3,1,1,0,0,...)
-        res += r.get_w31100()*orb::orbitBAA(g.get_l3(), g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w31100()*orb::orbitBAA(g.get_l3(), g.get_l1(), hc, f , n , &mut f_evals);
         // (3,2,0,0,0,...)
-        res += r.get_w32000()*orb::orbitBA(g.get_l3(), g.get_l2(), &hc, f , n , &mut f_evals);
+        res += r.get_w32000()*orb::orbitBA(g.get_l3(), g.get_l2(), hc, f , n , &mut f_evals);
         // (4,0,0,0,0,...)
-        res += r.get_w40000()*orb::orbitA(g.get_l4(), &hc, f , n , &mut f_evals);
+        res += r.get_w40000()*orb::orbitA(g.get_l4(), hc, f , n , &mut f_evals);
         // (4,1,0,0,0,...)
-        res += r.get_w41000()*orb::orbitBA(g.get_l4(), g.get_l1(), &hc, f , n , &mut f_evals);
+        res += r.get_w41000()*orb::orbitBA(g.get_l4(), g.get_l1(), hc, f , n , &mut f_evals);
         // (5,0,0,0,0,...)
-        res += r.get_w50000()*orb::orbitA(g.get_l5(), &hc, f , n , &mut f_evals);
+        res += r.get_w50000()*orb::orbitA(g.get_l5(), hc, f , n , &mut f_evals);
         // (delta,delta,...,delta)
-        res += r.get_w_delta()*orb::orbitDelta(g.get_de(), &hc, f , n , &mut f_evals);
+        res += r.get_w_delta()*orb::orbitDelta(g.get_de(), hc, f , n , &mut f_evals);
 
         res
     }
@@ -241,29 +241,29 @@ mod tests {
         // (0,0,0,0,0,...)
         let mut res:f64 = r.get_w00000()*f(&hc.xc)*hc.hwvol;
         // (1,0,0,0,0,...)
-        res += r.get_w10000()*orb::orbitA(g.get_l1(), &hc, f , n , &mut f_evals );
+        res += r.get_w10000()*orb::orbitA(g.get_l1(), hc, f , n , &mut f_evals );
         // (1,1,0,0,0,...)
-        res += r.get_w11000()*orb::orbitAA(g.get_l1(), &hc, f , n , &mut f_evals );
+        res += r.get_w11000()*orb::orbitAA(g.get_l1(), hc, f , n , &mut f_evals );
         // (1,1,1,0,0,...)
-        res += r.get_w11100()*orb::orbitAAA(g.get_l1(), &hc, f , n , &mut f_evals );
+        res += r.get_w11100()*orb::orbitAAA(g.get_l1(), hc, f , n , &mut f_evals );
         // (1,1,1,1,0,...)
-        res += r.get_w11110()*orb::orbitAAAA(g.get_l1(), &hc, f , n , &mut f_evals );
+        res += r.get_w11110()*orb::orbitAAAA(g.get_l1(), hc, f , n , &mut f_evals );
         // (2,0,0,0,0,...)
-        res += r.get_w20000()*orb::orbitA(g.get_l2(), &hc, f , n , &mut f_evals );
+        res += r.get_w20000()*orb::orbitA(g.get_l2(), hc, f , n , &mut f_evals );
         // (2,1,0,0,0,...)
-        res += r.get_w21000()*orb::orbitBA(g.get_l2(), g.get_l1(), &hc, f , n , &mut f_evals );
+        res += r.get_w21000()*orb::orbitBA(g.get_l2(), g.get_l1(), hc, f , n , &mut f_evals );
         // (2,1,1,0,0,...)
-        res += r.get_w21100()*orb::orbitBAA(g.get_l2(), g.get_l1(), &hc, f , n , &mut f_evals );
+        res += r.get_w21100()*orb::orbitBAA(g.get_l2(), g.get_l1(), hc, f , n , &mut f_evals );
         // (2,2,0,0,0,...)
-        res += r.get_w22000()*orb::orbitAA(g.get_l2(), &hc, f , n , &mut f_evals );
+        res += r.get_w22000()*orb::orbitAA(g.get_l2(), hc, f , n , &mut f_evals );
         // (3,0,0,0,0,...)
-        res += r.get_w30000()*orb::orbitA(g.get_l3(), &hc, f , n , &mut f_evals );
+        res += r.get_w30000()*orb::orbitA(g.get_l3(), hc, f , n , &mut f_evals );
         // (3,1,0,0,0,...)
-        res += r.get_w31000()*orb::orbitBA(g.get_l3(), g.get_l1(), &hc, f , n , &mut f_evals );
+        res += r.get_w31000()*orb::orbitBA(g.get_l3(), g.get_l1(), hc, f , n , &mut f_evals );
         // (4,0,0,0,0,...)
-        res += r.get_w40000()*orb::orbitA(g.get_l4(), &hc, f , n , &mut f_evals );
+        res += r.get_w40000()*orb::orbitA(g.get_l4(), hc, f , n , &mut f_evals );
         // (delta,delta,...,delta)
-        res += r.get_w_delta()*orb::orbitDelta(g.get_de(), &hc, f , n , &mut f_evals );
+        res += r.get_w_delta()*orb::orbitDelta(g.get_de(), hc, f , n , &mut f_evals );
 
         res
     }
@@ -275,7 +275,7 @@ mod tests {
     use super::*;
 
     // Test functions
-    fn f_0(x:&Point) -> f64 { 1.0 }
+    fn f_0(_:&Point) -> f64 { 1.0 }
     fn f_11(x:&Point) -> f64 { x[0]*x[1] }
     fn f_12(x:&Point) -> f64 { x[0]*x[1].powi(2) }
     fn f_22(x:&Point) -> f64 { x[0].powi(2)*x[1].powi(2) }
@@ -293,13 +293,13 @@ mod tests {
         let r11 = Rule11weights::new(100, DIM);
         let gen = Generators::new(100);
         // [0,2]
-        let cube5d02 = HyperCube::new(&vec![1.0; DIM as usize], &vec![1.0; DIM as usize]);
+        let cube5d02 = HyperCube::new(&vec![1.0; DIM], &vec![1.0; DIM]);
         // [-1,1]
-        let cube5dm1p1 = HyperCube::new(&vec![0.0; DIM as usize], &vec![1.0; DIM as usize]);
+        let cube5dm1p1 = HyperCube::new(&vec![0.0; DIM], &vec![1.0; DIM]);
         // [-2,2]
-        let cube5dm2p2 = HyperCube::new(&vec![0.0; DIM as usize], &vec![2.0; DIM as usize]);
+        let cube5dm2p2 = HyperCube::new(&vec![0.0; DIM], &vec![2.0; DIM]);
         // [0,1]
-        let cube5d01 = HyperCube::new(&vec![0.5; DIM as usize], &vec![0.5; DIM as usize]);
+        let cube5d01 = HyperCube::new(&vec![0.5; DIM], &vec![0.5; DIM]);
 
         // Standard cube
         assert_approx_eq!(int_rule11(&cube5dm1p1, f_22, DIM, &r11, &gen), 32f64/9f64, ERR);
@@ -323,13 +323,13 @@ mod tests {
         let r13 = Rule13weights::new(100, DIM);
         let gen = Generators::new(100);
         // [0,2]
-        let cube5d02 = HyperCube::new(&vec![1.0; DIM as usize], &vec![1.0; DIM as usize]);
+        let cube5d02 = HyperCube::new(&vec![1.0; DIM], &vec![1.0; DIM]);
         // [-1,1]
-        let cube5dm1p1 = HyperCube::new(&vec![0.0; DIM as usize], &vec![1.0; DIM as usize]);
+        let cube5dm1p1 = HyperCube::new(&vec![0.0; DIM], &vec![1.0; DIM]);
         // [-2,2]
-        let cube5dm2p2 = HyperCube::new(&vec![0.0; DIM as usize], &vec![2.0; DIM as usize]);
+        let cube5dm2p2 = HyperCube::new(&vec![0.0; DIM], &vec![2.0; DIM]);
         // [0,1]
-        let cube5d01 = HyperCube::new(&vec![0.5; DIM as usize], &vec![0.5; DIM as usize]);
+        let cube5d01 = HyperCube::new(&vec![0.5; DIM], &vec![0.5; DIM]);
 
         // Standard cube
         assert_approx_eq!(int_rule13(&cube5dm1p1, f_22, DIM, &r13, &gen), 32f64/9f64, ERR);
@@ -355,13 +355,13 @@ mod tests {
         let r13 = Rule13weights::new(100, DIM);
         let gen = Generators::new(100);
         // [0,2]
-        let cube5d02 = HyperCube::new(&vec![1.0; DIM as usize], &vec![1.0; DIM as usize]);
+        let _cube5d02 = HyperCube::new(&vec![1.0; DIM], &vec![1.0; DIM]);
         // [-1,1]
-        let cube5dm1p1 = HyperCube::new(&vec![0.0; DIM as usize], &vec![1.0; DIM as usize]);
+        let _cube5dm1p1 = HyperCube::new(&vec![0.0; DIM], &vec![1.0; DIM]);
         // [-2,2]
-        let cube5dm2p2 = HyperCube::new(&vec![0.0; DIM as usize], &vec![2.0; DIM as usize]);
+        let _cube5dm2p2 = HyperCube::new(&vec![0.0; DIM], &vec![2.0; DIM]);
         // [0,1]
-        let cube5d01 = HyperCube::new(&vec![0.5; DIM as usize], &vec![0.5; DIM as usize]);
+        let cube5d01 = HyperCube::new(&vec![0.5; DIM], &vec![0.5; DIM]);
 
         // Standard cube
         // assert_approx_eq!(integrate_region(&cube5dm1p1, f_22, DIM, &r11, &r13, &gen), 32f64/9f64, ERR);
@@ -381,11 +381,11 @@ mod tests {
         assert_approx_eq!(integrate_region(&cube5d01, f_1234, DIM, &r11, &r13, &gen,"").res11, 1f64/120f64, ERR);
 
         // we need a new cube since integrate_region destroys existing one
-        // let cube5d01 = HyperCube::new(&vec![0.5; DIM as usize], &vec![0.5; DIM as usize]);
+        // let cube5d01 = HyperCube::new(&vec![0.5; DIM], &vec![0.5; DIM]);
         assert_approx_eq!(integrate_region(&cube5d01, f_1234, DIM, &r11, &r13, &gen,"").res13, 1f64/120f64, ERR);
 
 
-        let cube5d01 = HyperCube::new(&vec![0.5; DIM as usize], &vec![0.5; DIM as usize]);
+        let _cube5d01 = HyperCube::new(&vec![0.5; DIM], &vec![0.5; DIM]);
 
     }
 

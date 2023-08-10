@@ -65,7 +65,7 @@ impl HyperCube {
     pub fn from_bounds(lower_bounds:&Point, upper_bounds:&Point) -> HyperCube {
         assert!(lower_bounds.len() == upper_bounds.len(),
                 "dim(a) = {}, dim(b) = {}", lower_bounds.len(), upper_bounds.len());
-        let mut center  = Point::new(); 
+        let mut center  = Point::new();
         let mut widths = Point::new();
         let mut vol:f64 = 1f64;
         for (&a_i, &b_i) in lower_bounds.iter().zip(upper_bounds.iter()) {
@@ -167,17 +167,17 @@ impl Integrator {
 
 
     pub fn calc(&mut self, ncores:usize, max_regions:usize, max_f_calls:usize, rel_err_goal:f64) {
-        println!("Integration started with ncores = {}", ncores);
+        println!("Integration started with ncores = {ncores}");
         let start_time = Instant::now();
         // Store number of function calls
-        let mut f_evals = AtomicUsize::new(0);
+        let f_evals = AtomicUsize::new(0);
 
         rayon::ThreadPoolBuilder::new().num_threads(ncores).build_global().unwrap();
 
         // We make a copy of the starting region to keep track of the integration region bounds
         // let start_cube = self.start_region.clone();
         // make first integration and start using a heap
-        let sr:RegionResult = integrate_region(&self.start_region.set_name(&"S_".to_string()), self.f, self.ndim, &self.r11, &self.r13, &self.gen, "555");
+        let sr:RegionResult = integrate_region(self.start_region.set_name(&"S_".to_string()), self.f, self.ndim, &self.r11, &self.r13, &self.gen, "555");
         f_evals.fetch_add(sr.f_evals, atmord::SeqCst);
         self.relerr = (sr.err/sr.res).abs();
         self.abserr = sr.err;
@@ -199,12 +199,12 @@ impl Integrator {
                 // println!("Popping region!");
                 let r = self.regions_heap.pop().unwrap();
 
-                let dir = r.divdir.clone();
+                let dir = r.divdir;
                 let killed_region_name = r.region.name.clone();
                 // Split calculated region cube in two left(L) and right(R)
                 let (mut cube_l, mut cube_r) = split_region(&r.region, dir);
-                let region_l_name = format!("{}{}L", killed_region_name, dir);
-                let region_r_name = format!("{}{}R", killed_region_name, dir);
+                let region_l_name = format!("{killed_region_name}{dir}L");
+                let region_r_name = format!("{killed_region_name}{dir}R");
 
                 cube_l.set_name(&region_l_name);
                 cube_r.set_name(&region_r_name);
@@ -215,7 +215,7 @@ impl Integrator {
                 // Save region result: [reg_id, (reg_res, left_id, right_id)]
                 self.saved_regions.insert(killed_region_name, (r, region_l_name, region_r_name));
             }
-            
+
             use rayon::prelude::*;
             let mut result: BinaryHeap<RegionResult> = BinaryHeap::with_capacity(ncores);
 
@@ -223,7 +223,7 @@ impl Integrator {
                 // calculation result to save f_calls
                 let rr:RegionResult = integrate_region(cube, self.f, self.ndim, &self.r11, &self.r13, &self.gen,"666");
                 f_evals.fetch_add(rr.f_evals, atmord::SeqCst);
-                return rr
+                rr
                 }).collect();
             self.regions_heap.append(&mut result);
             // println!("new regions length = {}", self.regions_heap.len());
@@ -245,9 +245,9 @@ impl Integrator {
             self.res    = total;
 
             println!(" *  N(regions)={regions:>6}  || log10(fcalls)={calls:>10.4} || sigma={sigma:10.4}  || I=({res:+12.4e} +/- {err:12.4e})",regions=self.n_regions, calls=(self.f_calls as f64).log10(), sigma = self.relerr,res=self.res, err = self.abserr);
-            println!("");
+            println!();
             println!("    Elapsed time: {:.2?}", start_time.elapsed());
-            println!("");
+            println!();
         }
 
         let mut stop_reason:IntegrationStopReason = IntegrationStopReason::InternalError;
@@ -261,15 +261,15 @@ impl Integrator {
         }
 
         // Final statistics
-        println!("");
-        println!("");
-        println!("");
+        println!();
+        println!();
+        println!();
         println!("===========================================================================");
         match stop_reason {
-            IntegrationStopReason::RelErr => println!("stop reason       = RelErr"),
-            IntegrationStopReason::AbsErr => println!("stop reason       = AbsErr"),
-            IntegrationStopReason::NumFunCalls => println!("stop reason       = NumFunCalls"),
-            IntegrationStopReason::NumRegions => println!("stop reason       = NumRegions"),
+            IntegrationStopReason::RelErr        => println!("stop reason       = RelErr"),
+            IntegrationStopReason::AbsErr        => println!("stop reason       = AbsErr"),
+            IntegrationStopReason::NumFunCalls   => println!("stop reason       = NumFunCalls"),
+            IntegrationStopReason::NumRegions    => println!("stop reason       = NumRegions"),
             IntegrationStopReason::InternalError => println!("stop reason       = ERROR"),
         }
         println!("function calls    = {}", self.f_calls);
@@ -282,7 +282,7 @@ impl Integrator {
 
 
     pub fn dump(&self) {
-        
+
         // TODO
     }
 
@@ -294,9 +294,9 @@ impl Integrator {
 
 
 // -------------------------------------------------------------------------------------------------------------
-// 
+//
 //                                            TESTS PART
-// 
+//
 // -------------------------------------------------------------------------------------------------------------
 #[cfg(test)]
 mod tests {
